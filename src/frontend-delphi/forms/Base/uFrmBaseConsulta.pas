@@ -49,8 +49,7 @@ procedure TFrmBaseConsulta.btnExcluirClick(Sender: TObject);
 begin
   inherited;
 
-  if Confirma(cgMsgConfirmaExclusao) then
-    ExcluirRegistro;
+  ExcluirRegistro;
 end;
 
 procedure TFrmBaseConsulta.btnSairClick(Sender: TObject);

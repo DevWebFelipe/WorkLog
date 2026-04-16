@@ -42,11 +42,7 @@ procedure TFrmBaseCadastro.btnExcluirClick(Sender: TObject);
 begin
   inherited;
 
-  if (not Confirma(cgMsgConfirmaExclusao)) then
-    Exit;
-
   ExcluirRegistro;
-  Close;
 end;
 
 procedure TFrmBaseCadastro.btnSairClick(Sender: TObject);
