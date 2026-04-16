@@ -10,7 +10,7 @@ procedure RoutesRegister;
 implementation
 
 uses
-  PingController, UsuarioController;
+  UsuarioController;
 
 procedure RoutesRegister;
 begin

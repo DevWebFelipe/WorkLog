@@ -24,6 +24,7 @@ Win64/
 Debug/
 Release/
 __history/
+__recovery/
 bin/
 build/
 

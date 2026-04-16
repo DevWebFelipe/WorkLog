@@ -228,7 +228,7 @@ begin
             mJSONResponse.AddPair('nome', mUsuario.Nome);
             mJSONResponse.AddPair('login', mUsuario.Login);
 
-            mResposta.Status(200).Send(mJSONResponse);
+            mResposta.Status(200).Send(mJSONResponse.ToString);
           end
         else
           mResposta.Status(401).Send('Usuário ou senha inválidos.');

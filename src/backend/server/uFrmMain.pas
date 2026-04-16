@@ -42,7 +42,7 @@ begin
           mmoLog.Clear;
           mmoLog.Lines.Add('Servidor iniciado com sucesso!');
           mmoLog.Lines.Add('Rodando em: http://localhost:9000');
-          mmoLog.Lines.Add('Teste: http://localhost:9000/ping');
+          mmoLog.Lines.Add('Testar: http://localhost:9000/ping');
           mmoLog.Lines.Add('--------------------------------------');
         end
       );

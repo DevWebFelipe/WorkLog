@@ -32,9 +32,9 @@ object FrmMain: TFrmMain
       Width = 460
       Height = 191
       Align = alBottom
-      Lines.Strings = (
-        'mmoLog')
       TabOrder = 0
+      ExplicitTop = 39
+      ExplicitWidth = 456
     end
     object btnIniciarServer: TButton
       Left = 8
@@ -45,8 +45,7 @@ object FrmMain: TFrmMain
       Caption = 'Iniciar servidor'
       TabOrder = 1
       OnClick = btnIniciarServerClick
-      ExplicitTop = 0
-      ExplicitWidth = 129
+      ExplicitWidth = 456
     end
   end
 end
