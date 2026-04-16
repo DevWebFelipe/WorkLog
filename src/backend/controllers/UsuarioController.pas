@@ -3,7 +3,7 @@ unit UsuarioController;
 interface
 
 uses
-  Horse;
+  Horse, JsonHelper, UsuarioDTO, UsuarioMapper;
 
 type
   TUsuarioController = class
@@ -21,7 +21,7 @@ implementation
 
 uses
   LibSistema, uDMConexao,
-  System.SysUtils, System.JSON;
+  System.SysUtils, System.JSON, System.Generics.Collections;
 
 { TUsuarioController }
 
@@ -76,22 +76,15 @@ begin
   try
     var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
     try
-      var mJSONList := TJSONArray.Create;
       var mListaUsuarioVO := mDAO.Buscar;
-      for var mUsuarioVO in mListaUsuarioVO  do
-        begin
-          var mJSONResponse := TJSONObject.Create;
-          mJSONResponse.AddPair('id', TJSONNumber.Create(mUsuarioVO.Id));
-          mJSONResponse.AddPair('nome', mUsuarioVO.Nome);
-          mJSONResponse.AddPair('login', mUsuarioVO.Login);
+      var mListaDTO := TObjectList<TUsuarioDTO>.Create;
+      for var mVO in mListaUsuarioVO do
+        mListaDTO.Add(TUsuarioMapper.VOToDTO(mVO));
 
-          mJSONList.AddElement(mJSONResponse);
-        end;
-
-      if (mJSONList.Count <= 0) then
+      if (mListaDTO.Count <= 0) then
         mResposta.Status(401).Send('Não foi possível buscar a lista.')
       else
-        mResposta.Status(200).Send(mJSONList.ToJSON);
+        mResposta.Status(200).Send(TJsonHelper.ObjectToJson<TObjectList<TUsuarioDTO>>(mListaDTO));
     finally
       FreeAndNil(mDAO);
     end;
@@ -102,29 +95,26 @@ end;
 
 class procedure TUsuarioController.BuscarPorId(mRequisicao: THorseRequest; mResposta: THorseResponse; Next: TProc);
 begin
-  var mId := mRequisicao.Params['id'];
+  var mId := mRequisicao.Params['id'].ToInteger;
   var mDM := TDMConexao.Create(nil);
   try
     var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
     try
-      var mUsuarioVO := mDAO.BuscarPorId(mId.ToInteger);
-      if (not Assigned(mUsuarioVO)) or (mUsuarioVO.Id <= 0) then
+      var mVO := mDAO.BuscarPorId(mId);
+      if (not Assigned(mVO)) then
         begin
-          mResposta.Status(401).Send('Não foi possível encontrar o registro buscado.');
+          mResposta.Status(404).Send('Não encontrado.');
           Exit;
         end;
-
-      var mJSONResponse := TJSONObject.Create;
-      mJSONResponse.AddPair('id', TJSONNumber.Create(mUsuarioVO.Id));
-      mJSONResponse.AddPair('nome', mUsuarioVO.Nome);
-      mJSONResponse.AddPair('login', mUsuarioVO.Login);
-
-      mResposta.Status(200).Send(mJSONResponse.ToJson);
+      var mDTO := TUsuarioMapper.VOToDTO(mVO);
+      mResposta
+        .Status(200)
+        .Send(TJsonHelper.ObjectToJson<TUsuarioDTO>(mDTO));
     finally
-      FreeAndNil(mDAO);
+      mDAO.Free;
     end;
   finally
-    FreeAndNil(mDM);
+    mDM.Free;
   end;
 end;
 
@@ -151,96 +141,63 @@ end;
 
 class procedure TUsuarioController.Inserir(mRequisicao: THorseRequest; mResposta: THorseResponse; Next: TProc);
 begin
-  var mJSON := (TJSONObject.ParseJSONValue(mRequisicao.Body) as TJSONObject);
+  var mDTO := TJsonHelper.JsonToObject<TUsuarioDTO>(mRequisicao.Body);
+  if not Assigned(mDTO) then
+    begin
+      mResposta.Status(400).Send('Body inválido.');
+      Exit;
+    end;
+  var mDM := TDMConexao.Create(nil);
   try
-    if (not Assigned(mJSON)) then
-      begin
-        mResposta.Status(400).Send('Body inválido.');
-        Exit;
-      end;
-
-    var mNome  := mJSON.GetValue<String>('nome');
-    var mLogin := mJSON.GetValue<String>('login');
-    var mSenha := mJSON.GetValue<String>('senha');
-    var mAtivo := mJSON.GetValue<Boolean>('ativo');
-
-    var mDM := TDMConexao.Create(nil);
+    var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
     try
-      var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
-      try
-        var mUsuarioVO   := TUsuarioVO.Create;
-        mUsuarioVO.Nome  := mNome;
-        mUsuarioVO.Login := mLogin;
-        mUsuarioVO.Senha := mSenha;
-        mUsuarioVO.Ativo := mAtivo;
-
-        if mDAO.Inserir(mUsuarioVO) then
-          mResposta.Status(200).Send('Registro inserido com sucesso.')
-        else
-          mResposta.Status(401).Send('Não foi possível inserir o usuário.');
-      finally
-        FreeAndNil(mDAO);
-      end;
+      var mVO := TUsuarioMapper.DTOToVO(mDTO);
+      if mDAO.Inserir(mVO) then
+        mResposta.Status(200).Send('Registro inserido com sucesso.')
+      else
+        mResposta.Status(400).Send('Erro ao inserir.');
     finally
-      FreeAndNil(mDM);
+      mDAO.Free;
     end;
   finally
-    if Assigned(mJSON) then
-      FreeAndNil(mJSON);
+    mDM.Free;
   end;
 end;
 
 class procedure TUsuarioController.Login(mRequisicao: THorseRequest; mResposta: THorseResponse; Next: TProc);
 begin
-  var mJSON := (TJSONObject.ParseJSONValue(mRequisicao.Body) as TJSONObject);
+  var mDTO := TJsonHelper.JsonToObject<TUsuarioDTO>(mRequisicao.Body);
+
+  if mDTO.Login.Trim.IsEmpty then
+    begin
+      mResposta.Status(400).Send('Campo login não informado.');
+      Exit;
+    end;
+
+  if mDTO.Senha.Trim.IsEmpty then
+    begin
+      mResposta.Status(400).Send('Campo senha não informado.');
+      Exit;
+    end;
+
+  var mDM := TDMConexao.Create(nil);
   try
-    if (not Assigned(mJSON)) then
-      begin
-        mResposta.Status(400).Send('Body inválido.');
-        Exit;
-      end;
-
-    var mLogin := mJSON.GetValue<String>('login');
-    var mSenha := mJSON.GetValue<String>('senha');
-
-    if mLogin.Trim.IsEmpty then
-      begin
-        mResposta.Status(400).Send('Campo login não informado.');
-        Exit;
-      end;
-
-    if mSenha.Trim.IsEmpty then
-      begin
-        mResposta.Status(400).Send('Campo senha não informado.');
-        Exit;
-      end;
-
-    var mDM := TDMConexao.Create(nil);
+    var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
     try
-      var mDAO := TUsuarioDAO.Create(mDM.GetConnection);
-      try
-        var mUsuario := mDAO.Login(mLogin, mSenha);
+      var mVO := mDAO.Login(mDTO.Login, mDTO.Senha);
 
-        if Assigned(mUsuario) then
-          begin
-            var mJSONResponse := TJSONObject.Create;
-            mJSONResponse.AddPair('id', TJSONNumber.Create(mUsuario.Id));
-            mJSONResponse.AddPair('nome', mUsuario.Nome);
-            mJSONResponse.AddPair('login', mUsuario.Login);
-
-            mResposta.Status(200).Send(mJSONResponse.ToString);
-          end
-        else
-          mResposta.Status(401).Send('Usuário ou senha inválidos.');
-      finally
-        FreeAndNil(mDAO);
-      end;
+      if Assigned(mVO) then
+        begin
+          mDTO := TUsuarioMapper.VOToDTO(mVO);
+          mResposta.Status(200).Send(TJsonHelper.ObjectToJson<TUsuarioDTO>(mDTO));
+        end
+      else
+        mResposta.Status(401).Send('Usuário ou senha inválidos.');
     finally
-      FreeAndNil(mDM);
+      FreeAndNil(mDAO);
     end;
   finally
-    if Assigned(mJSON) then
-      FreeAndNil(mJSON);
+    FreeAndNil(mDM);
   end;
 end;
 

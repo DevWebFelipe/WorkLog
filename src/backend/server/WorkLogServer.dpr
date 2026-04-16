@@ -8,10 +8,13 @@ uses
   uDMConexao in '..\datamodules\uDMConexao.pas' {DMConexao: TDataModule},
   UsuarioDAO in '..\daos\UsuarioDAO.pas',
   UsuarioVO in '..\vos\UsuarioVO.pas',
-  UsuarioController in '..\controllers\UsuarioController.pas',
   BaseDAO in '..\daos\BaseDAO.pas',
   BaseVO in '..\vos\BaseVO.pas',
-  LibSistema in '..\libs\LibSistema.pas';
+  LibSistema in '..\libs\LibSistema.pas',
+  UsuarioDTO in '..\..\shared\dtos\usuario\UsuarioDTO.pas',
+  JsonHelper in '..\..\shared\libUtil\JsonHelper.pas',
+  UsuarioMapper in '..\mappers\UsuarioMapper.pas',
+  UsuarioController in '..\controllers\UsuarioController.pas';
 
 {$R *.res}
 

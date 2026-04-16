@@ -49,7 +49,6 @@ begin
     FConnection.StartTransaction;
     try
       mQuery.ExecSQL;
-
       FConnection.Commit;
     except
       FConnection.Rollback;
@@ -68,7 +67,8 @@ begin
   try
     mQuery.Connection := FConnection;
 
-    mQuery.SQL.Add('UPDATE usuario SET nome = :mNome, login = :mLogin, senha = :mSenha, ativo = :mAtivo, data_atualizacao = :mDataAtualizacao');
+    mQuery.SQL.Add('UPDATE usuario SET nome = :mNome, login = :mLogin, senha = :mSenha, ativo = :mAtivo,');
+    mQuery.SQL.Add('data_atualizacao = :mDataAtualizacao');
     mQuery.SQL.Add('WHERE (id = :mId)');
     mQuery.ParamByName('mId').AsLargeInt := mUsuarioVO.Id;
 
@@ -174,7 +174,6 @@ begin
     FConnection.StartTransaction;
     try
       mQuery.ExecSQL;
-
       FConnection.Commit;
     except
       FConnection.Rollback;
