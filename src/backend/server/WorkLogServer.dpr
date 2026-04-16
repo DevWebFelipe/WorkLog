@@ -7,11 +7,11 @@ uses
   Routes in '..\routes\Routes.pas',
   uDMConexao in '..\datamodules\uDMConexao.pas' {DMConexao: TDataModule},
   UsuarioDAO in '..\daos\UsuarioDAO.pas',
-  LibSistema in '..\..\shared\libSistema\LibSistema.pas',
   UsuarioVO in '..\vos\UsuarioVO.pas',
   UsuarioController in '..\controllers\UsuarioController.pas',
   BaseDAO in '..\daos\BaseDAO.pas',
-  BaseVO in '..\vos\BaseVO.pas';
+  BaseVO in '..\vos\BaseVO.pas',
+  LibSistema in '..\libs\LibSistema.pas';
 
 {$R *.res}
 

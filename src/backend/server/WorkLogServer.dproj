@@ -143,11 +143,11 @@
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\daos\UsuarioDAO.pas"/>
-        <DCCReference Include="..\..\shared\libSistema\LibSistema.pas"/>
         <DCCReference Include="..\vos\UsuarioVO.pas"/>
         <DCCReference Include="..\controllers\UsuarioController.pas"/>
         <DCCReference Include="..\daos\BaseDAO.pas"/>
         <DCCReference Include="..\vos\BaseVO.pas"/>
+        <DCCReference Include="..\libs\LibSistema.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

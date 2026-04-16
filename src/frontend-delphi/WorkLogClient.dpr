@@ -9,10 +9,10 @@ uses
   uFrmPrin in 'forms\uFrmPrin.pas' {FrmPrin},
   uFrmCadastroUsuario in 'forms\Usuario\uFrmCadastroUsuario.pas' {FrmCadastroUsuario},
   uFrmConsultaUsuario in 'forms\Usuario\uFrmConsultaUsuario.pas' {FrmConsultaUsuario},
-  LibConst in 'libs\LibConst.pas',
-  LibUtil in 'libs\LibUtil.pas',
   LibForm in 'libs\LibForm.pas',
-  LibEnum in 'libs\LibEnum.pas';
+  LibUtil in '..\shared\libUtil\LibUtil.pas',
+  LibEnum in '..\shared\libEnumerado\LibEnum.pas',
+  LibConst in '..\shared\libConst\LibConst.pas';
 
 {$R *.res}
 

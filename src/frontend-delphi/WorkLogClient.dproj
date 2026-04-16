@@ -137,10 +137,10 @@
             <Form>FrmConsultaUsuario</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="libs\LibConst.pas"/>
-        <DCCReference Include="libs\LibUtil.pas"/>
         <DCCReference Include="libs\LibForm.pas"/>
-        <DCCReference Include="libs\LibEnum.pas"/>
+        <DCCReference Include="..\shared\libUtil\LibUtil.pas"/>
+        <DCCReference Include="..\shared\libEnumerado\LibEnum.pas"/>
+        <DCCReference Include="..\shared\libConst\LibConst.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
