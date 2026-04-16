@@ -1,0 +1,65 @@
+# 🔹 Delphi (arquivos compilados e temporários)
+
+*.exe
+*.dll
+*.bpl
+*.dcp
+*.dcu
+*.identcache
+*.local
+*.stat
+*.tvsconfig
+*.rsm
+
+# 🔹 Arquivos de backup/temporários do Delphi
+
+*~
+*.bak
+*.tmp
+
+# 🔹 Pastas de build
+
+Win32/
+Win64/
+Debug/
+Release/
+__history/
+bin/
+build/
+
+# 🔹 Configurações locais (não versionar)
+
+*.dproj.local
+*.groupproj.local
+
+# 🔹 Logs
+
+*.log
+
+# 🔹 Arquivos de banco local (se usar)
+
+*.db
+*.fdb
+*.sqlite
+
+# 🔹 PostgreSQL (caso use dump local)
+
+*.sql~
+*.dump
+
+# 🔹 IDEs / Sistema
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 🔹 Node (caso use frontend futuramente)
+
+node_modules/
+
+# 🔹 Arquivos sensíveis (futuro)
+
+.env
+.env.*
+config.local.*
