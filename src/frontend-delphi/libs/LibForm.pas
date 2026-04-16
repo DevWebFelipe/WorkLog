@@ -60,19 +60,7 @@ end;
 
 class function TLibForm.ShowModal(mClasseForm: TFormClass): Integer;
 begin
-  var mForm := Get(mClasseForm);
-
-  // Se já existir um form aberto desse tipo, NÃO abre outro modal
-  if Assigned(mForm) then
-    begin
-      if IsIconic(mForm.Handle) then
-        ShowWindow(mForm.Handle, SW_RESTORE);
-
-      mForm.BringToFront;
-      Exit(mrNone);
-    end;
-
-  mForm := mClasseForm.Create(Application);
+  var mForm := mClasseForm.Create(Application);
   try
     Result := mForm.ShowModal;
   finally
