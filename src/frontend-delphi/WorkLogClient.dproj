@@ -141,6 +141,8 @@
         <DCCReference Include="..\shared\libUtil\LibUtil.pas"/>
         <DCCReference Include="..\shared\libEnumerado\LibEnum.pas"/>
         <DCCReference Include="..\shared\libConst\LibConst.pas"/>
+        <DCCReference Include="..\shared\libUtil\JsonHelper.pas"/>
+        <DCCReference Include="..\shared\dtos\usuario\UsuarioDTO.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

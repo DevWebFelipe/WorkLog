@@ -12,7 +12,9 @@ uses
   LibForm in 'libs\LibForm.pas',
   LibUtil in '..\shared\libUtil\LibUtil.pas',
   LibEnum in '..\shared\libEnumerado\LibEnum.pas',
-  LibConst in '..\shared\libConst\LibConst.pas';
+  LibConst in '..\shared\libConst\LibConst.pas',
+  JsonHelper in '..\shared\libUtil\JsonHelper.pas',
+  UsuarioDTO in '..\shared\dtos\usuario\UsuarioDTO.pas';
 
 {$R *.res}
 

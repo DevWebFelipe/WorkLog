@@ -144,8 +144,8 @@
         </DCCReference>
         <DCCReference Include="..\daos\UsuarioDAO.pas"/>
         <DCCReference Include="..\vos\UsuarioVO.pas"/>
-        <DCCReference Include="..\daos\BaseDAO.pas"/>
-        <DCCReference Include="..\vos\BaseVO.pas"/>
+        <DCCReference Include="..\daos\base\BaseDAO.pas"/>
+        <DCCReference Include="..\vos\base\BaseVO.pas"/>
         <DCCReference Include="..\libs\LibSistema.pas"/>
         <DCCReference Include="..\..\shared\dtos\usuario\UsuarioDTO.pas"/>
         <DCCReference Include="..\..\shared\libUtil\JsonHelper.pas"/>
