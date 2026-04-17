@@ -157,6 +157,7 @@
         <DCCReference Include="..\daos\base\IBaseDAO.pas"/>
         <DCCReference Include="..\services\base\IBaseService.pas"/>
         <DCCReference Include="..\routes\RouteRegistry.pas"/>
+        <DCCReference Include="..\mappers\Base\RTTIMapper.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -20,7 +20,8 @@ uses
   UsuarioService in '..\services\UsuarioService.pas',
   IBaseDAO in '..\daos\base\IBaseDAO.pas',
   IBaseService in '..\services\base\IBaseService.pas',
-  RouteRegistry in '..\routes\RouteRegistry.pas';
+  RouteRegistry in '..\routes\RouteRegistry.pas',
+  RTTIMapper in '..\mappers\Base\RTTIMapper.pas';
 
 {$R *.res}
 

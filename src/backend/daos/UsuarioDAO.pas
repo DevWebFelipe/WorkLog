@@ -24,6 +24,7 @@ type
 implementation
 
 uses
+  RTTIMapper,
   System.SysUtils;
 
 { TUsuarioDAO }
@@ -36,14 +37,7 @@ end;
 function TUsuarioDAO.MapToVO(mQuery: TFDQuery): TUsuarioVO;
 begin
   Result := TUsuarioVO.Create;
-
-  Result.Id    := mQuery.FieldByName('id').AsInteger;
-  Result.Nome  := mQuery.FieldByName('nome').AsString;
-  Result.Login := mQuery.FieldByName('login').AsString;
-  Result.Senha := mQuery.FieldByName('senha').AsString;
-  Result.Ativo := mQuery.FieldByName('ativo').AsBoolean;
-  Result.DataCriacao     := mQuery.FieldByName('data_criacao').AsDateTime;
-  Result.DataAtualizacao := mQuery.FieldByName('data_atualizacao').AsDateTime;
+  TRTTIMapper.DataSetToObject<TUsuarioVO>(mQuery, Result);
 end;
 
 function TUsuarioDAO.Inserir(mUsuarioVO: TUsuarioVO): Boolean;
