@@ -34,7 +34,7 @@ begin
   TTask.Run(
     procedure
     begin
-      StartServer;
+      IniciarServidor;
 
       TThread.Queue(nil,
         procedure

@@ -5,21 +5,19 @@ interface
 uses
   Horse;
 
-procedure RoutesRegister;
+procedure RegistrarRotas;
 
 implementation
 
 uses
-  UsuarioController;
+  UsuarioController, RouteRegistry, LibSistema;
 
-procedure RoutesRegister;
+procedure RegistrarRotas;
 begin
-  THorse.Post('/Usuario/login', TUsuarioController.Login);
-  THorse.Post('/Usuario', TUsuarioController.Inserir);
-  THorse.Get('/Usuario', TUsuarioController.Buscar);
-  THorse.Get('/Usuario/:id', TUsuarioController.BuscarPorId);
-  THorse.Put('/Usuario/:id', TUsuarioController.Alterar);
-  THorse.Delete('/Usuario/:id', TUsuarioController.Excluir);
+  TRouteRegistry.RegistrarCRUD<TUsuarioDTO>('/usuario', TUsuarioController);
+
+  // rota específica continua manual
+//  THorse.Post('/usuario/login', TUsuarioController.Login);
 end;
 
 end.

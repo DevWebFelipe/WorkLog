@@ -8,31 +8,31 @@ uses
 type
   TUsuarioMapper = class
   public
-    class function VOToDTO(pVO: TUsuarioVO): TUsuarioDTO;
-    class function DTOToVO(pDTO: TUsuarioDTO): TUsuarioVO;
+    class function VOToDTO(mVO: TUsuarioVO): TUsuarioDTO;
+    class function DTOToVO(mDTO: TUsuarioDTO): TUsuarioVO;
   end;
 
 implementation
 
 { TUsuarioMapper }
 
-class function TUsuarioMapper.VOToDTO(pVO: TUsuarioVO): TUsuarioDTO;
+class function TUsuarioMapper.VOToDTO(mVO: TUsuarioVO): TUsuarioDTO;
 begin
   Result := TUsuarioDTO.Create;
-  Result.Id    := pVO.Id;
-  Result.Nome  := pVO.Nome;
-  Result.Login := pVO.Login;
-  Result.Ativo := pVO.Ativo;
+  Result.Id    := mVO.Id;
+  Result.Nome  := mVO.Nome;
+  Result.Login := mVO.Login;
+  Result.Ativo := mVO.Ativo;
 end;
 
-class function TUsuarioMapper.DTOToVO(pDTO: TUsuarioDTO): TUsuarioVO;
+class function TUsuarioMapper.DTOToVO(mDTO: TUsuarioDTO): TUsuarioVO;
 begin
   Result := TUsuarioVO.Create;
-  Result.Id    := pDTO.Id;
-  Result.Nome  := pDTO.Nome;
-  Result.Login := pDTO.Login;
-  Result.Senha := pDTO.Senha;
-  Result.Ativo := pDTO.Ativo;
+  Result.Id    := mDTO.Id;
+  Result.Nome  := mDTO.Nome;
+  Result.Login := mDTO.Login;
+  Result.Senha := mDTO.Senha;
+  Result.Ativo := mDTO.Ativo;
 end;
 
 end.

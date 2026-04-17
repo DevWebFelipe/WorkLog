@@ -147,10 +147,16 @@
         <DCCReference Include="..\daos\base\BaseDAO.pas"/>
         <DCCReference Include="..\vos\base\BaseVO.pas"/>
         <DCCReference Include="..\libs\LibSistema.pas"/>
-        <DCCReference Include="..\..\shared\dtos\usuario\UsuarioDTO.pas"/>
+        <DCCReference Include="..\..\shared\dtos\UsuarioDTO.pas"/>
         <DCCReference Include="..\..\shared\libUtil\JsonHelper.pas"/>
         <DCCReference Include="..\mappers\UsuarioMapper.pas"/>
         <DCCReference Include="..\controllers\UsuarioController.pas"/>
+        <DCCReference Include="..\controllers\base\BaseController.pas"/>
+        <DCCReference Include="..\services\base\BaseService.pas"/>
+        <DCCReference Include="..\services\UsuarioService.pas"/>
+        <DCCReference Include="..\daos\base\IBaseDAO.pas"/>
+        <DCCReference Include="..\services\base\IBaseService.pas"/>
+        <DCCReference Include="..\routes\RouteRegistry.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

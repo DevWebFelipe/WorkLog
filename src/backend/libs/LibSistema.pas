@@ -14,7 +14,8 @@ type
 
   TUsuarioVO = UsuarioVO.TUsuarioVO;
   TListaUsuarioVO = UsuarioVO.TListaUsuarioVO;
-  TUsarioDTO = UsuarioDTO.TUsuarioDTO;
+
+  TUsuarioDTO = UsuarioDTO.TUsuarioDTO;
 
 implementation
 

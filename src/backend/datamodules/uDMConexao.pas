@@ -11,12 +11,12 @@ type
   TDMConexao = class(TDataModule)
     conConnection: TFDConnection;
   private
-    fConnection: TFDConnection;
+    fConexao: TFDConnection;
     procedure ConfigurarConexao;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function GetConnection: TFDConnection;
+    function GetConexao: TFDConnection;
   end;
 
 var
@@ -32,38 +32,38 @@ implementation
 
 procedure TDMConexao.ConfigurarConexao;
 begin
-  fConnection.Close;
+  fConexao.Close;
 
-  fConnection.Params.Clear;
-  fConnection.Params.Add('DriverID=PG');
-  fConnection.Params.Add('Database=WORKLOG_DB');
-  fConnection.Params.Add('User_Name=postgres');
-  fConnection.Params.Add('Password=postgres');
-  fConnection.Params.Add('Server=localhost');
-  fConnection.Params.Add('Port=5432');
+  fConexao.Params.Clear;
+  fConexao.Params.Add('DriverID=PG');
+  fConexao.Params.Add('Database=WORKLOG_DB');
+  fConexao.Params.Add('User_Name=postgres');
+  fConexao.Params.Add('Password=postgres');
+  fConexao.Params.Add('Server=localhost');
+  fConexao.Params.Add('Port=5432');
 
-  fConnection.LoginPrompt := False;
-  fConnection.Connected   := True;
+  fConexao.LoginPrompt := False;
+  fConexao.Connected   := True;
 end;
 
 constructor TDMConexao.Create(AOwner: TComponent);
 begin
   inherited;
 
-  fConnection := TFDConnection.Create(nil);
+  fConexao := TFDConnection.Create(nil);
   ConfigurarConexao;
 end;
 
 destructor TDMConexao.Destroy;
 begin
-  fConnection.Free;
+  FreeAndNil(fConexao);
 
   inherited;
 end;
 
-function TDMConexao.GetConnection: TFDConnection;
+function TDMConexao.GetConexao: TFDConnection;
 begin
-  Result := fConnection;
+  Result := fConexao;
 end;
 
 end.

@@ -9,7 +9,7 @@ uses
 type
   TUsuarioDAO = class(TBaseDAO<TUsuarioVO>)
   protected
-    function GetTableName: string; override;
+    function GetNomeTabela: string; override;
   public
     function Alterar(mUsuarioVO: TUsuarioVO): Boolean; override;
     function Buscar: TListaUsuarioVO; override;
@@ -26,7 +26,7 @@ uses
 
 { TUsuarioDAO }
 
-function TUsuarioDAO.GetTableName: string;
+function TUsuarioDAO.GetNomeTabela: string;
 begin
   Result := 'usuario';
 end;
@@ -35,7 +35,7 @@ function TUsuarioDAO.Inserir(mUsuarioVO: TUsuarioVO): Boolean;
 begin
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('INSERT INTO usuario (nome, login, senha, ativo, data_criacao, data_atualizacao) ');
     mQuery.SQL.Add('VALUES (:mNome, :mLogin, :mSenha, :mAtivo, :mDataCriacao, :mDataAtualizacao)');
@@ -46,12 +46,12 @@ begin
     mQuery.ParamByName('mDataCriacao').AsDateTime     := Now;
     mQuery.ParamByName('mDataAtualizacao').AsDateTime := Now;
 
-    FConnection.StartTransaction;
+    FConexao.StartTransaction;
     try
       mQuery.ExecSQL;
-      FConnection.Commit;
+      FConexao.Commit;
     except
-      FConnection.Rollback;
+      FConexao.Rollback;
       raise;
     end;
 
@@ -65,7 +65,7 @@ function TUsuarioDAO.Alterar(mUsuarioVO: TUsuarioVO): Boolean;
 begin
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('UPDATE usuario SET nome = :mNome, login = :mLogin, senha = :mSenha, ativo = :mAtivo,');
     mQuery.SQL.Add('data_atualizacao = :mDataAtualizacao');
@@ -92,7 +92,7 @@ begin
 
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('SELECT *');
     mQuery.SQL.Add('FROM usuario');
@@ -133,7 +133,7 @@ begin
 
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('SELECT *');
     mQuery.SQL.Add('FROM usuario');
@@ -165,18 +165,18 @@ function TUsuarioDAO.Excluir(mId: Int64): Boolean;
 begin
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('DELETE FROM usuario');
     mQuery.SQL.Add('WHERE (id = :mId)');
     mQuery.ParamByName('mId').AsLargeInt := mId;
 
-    FConnection.StartTransaction;
+    FConexao.StartTransaction;
     try
       mQuery.ExecSQL;
-      FConnection.Commit;
+      FConexao.Commit;
     except
-      FConnection.Rollback;
+      FConexao.Rollback;
       raise;
     end;
 
@@ -192,7 +192,7 @@ begin
 
   var mQuery := TFDQuery.Create(nil);
   try
-    mQuery.Connection := FConnection;
+    mQuery.Connection := FConexao;
 
     mQuery.SQL.Add('SELECT *');
     mQuery.SQL.Add('FROM usuario');

@@ -8,22 +8,22 @@ uses
 type
   TJsonHelper = class
   public
-    class function ObjectToJson<T: class>(pObject: T): string;
-    class function JsonToObject<T: class, constructor>(pJson: string): T;
+    class function ObjectToJson<T: class>(mObjeto: T): string;
+    class function JsonToObject<T: class, constructor>(mJson: string): T;
   end;
 
 implementation
 
 { TJsonHelper }
 
-class function TJsonHelper.ObjectToJson<T>(pObject: T): string;
+class function TJsonHelper.ObjectToJson<T>(mObjeto: T): string;
 begin
-  Result := TJson.ObjectToJsonString(pObject);
+  Result := TJson.ObjectToJsonString(mObjeto);
 end;
 
-class function TJsonHelper.JsonToObject<T>(pJson: string): T;
+class function TJsonHelper.JsonToObject<T>(mJson: string): T;
 begin
-  Result := TJson.JsonToObject<T>(pJson);
+  Result := TJson.JsonToObject<T>(mJson);
 end;
 
 end.

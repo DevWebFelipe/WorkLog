@@ -2,16 +2,16 @@
 
 interface
 
-procedure StartServer;
+procedure IniciarServidor;
 
 implementation
 
 uses
   Horse, Routes;
 
-procedure StartServer;
+procedure IniciarServidor;
 begin
-  RoutesRegister;
+  RegistrarRotas;
 
   THorse.Listen(9000);
 end;
